@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://img.freepik.com/free-vector/blue-futuristic-networking-technology_53876-100679.jpg');
+            /* background-color: #1cfad5; */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .container {
+            background-color: blur;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 80px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 90px;
+            padding: 20px 30px;
+            margin: 15px;
+            border: 1px solid #5e5b5b;
+            border-radius: 4px;
+            font-size: 25px;
+        }
+
+        input[type="submit"] {
+            padding: 20px 30px;
+            background-color: #2adfd0;
+            color: #202020;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+            font-weight: bold;
+            font-size: 70px;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <form id="ageForm">
+            <input type="number" id="day" placeholder="Day" min="1" max="31" required>
+            <input type="number" id="month" placeholder="Month" min="1" max="12" required>
+            <input type="number" id="year" placeholder="Year" min="1800" max="2200" required>
+            <input type="submit" value="Calculate Age">
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("ageForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            calculateAge();
+        });
+
+        function calculateAge() {
+            var day = parseInt(document.getElementById("day").value);
+            var month = parseInt(document.getElementById("month").value) - 1; // Month is zero-based
+            var year = parseInt(document.getElementById("year").value);
+
+            var birthDate = new Date(year, month, day);
+            var currentDate = new Date();
+
+            var age = currentDate.getFullYear() - birthDate.getFullYear();
+
+            // Check if birthday has occurred this year
+            if (currentDate.getMonth() < birthDate.getMonth() || 
+                (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+                age--;
+        }
+
+        document.getElementById("result").innerText = "You are " + age + " years old.";
+    }
+</script>
+</body>
+</html
